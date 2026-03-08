@@ -240,6 +240,6 @@ Disclaimer
 This project is for educational and research purposes only and does not constitute investment advice.
 
 Author
-
+Charlie Nie
 Quantitative Research Project
 Cybersecurity Sector Alpha Study
