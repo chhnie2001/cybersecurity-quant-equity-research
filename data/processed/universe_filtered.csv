@@ -1,0 +1,20 @@
+ticker,company,subtheme
+CRWD,CrowdStrike,endpoint
+PANW,Palo Alto Networks,platform
+FTNT,Fortinet,network
+TENB,Tenable,endpoint
+S,SentinelOne,endpoint
+OKTA,Okta,identity
+CYBR,CyberArk,identity
+ZS,Zscaler,cloud
+NET,Cloudflare,network_edge
+AKAM,Akamai,network_edge
+CSCO,Cisco,network
+NTGR,Netgear,network
+SNPS,Synopsys,secure_dev
+PLTR,Palantir,data_platform
+OTEX,OpenText,data_security
+RPD,Rapid7,security_ops
+CHKP,Check Point,network
+GEN,Gen Digital,consumer_security
+QLYS,Qualys,cloud_security
