@@ -151,6 +151,7 @@ This improves diversification and reduces thematic concentration.
 
 Strategy Performance
 Baseline Strategy vs Benchmarks
+![Baseline vs Benchmarks](outputs/charts/baseline_vs_benchmarks.png)
 
 Benchmarks include:
 
@@ -158,24 +159,24 @@ SPY  – S&P 500 ETF
 CIBR – Cybersecurity ETF
 HACK – Cybersecurity ETF
 Risk-Controlled Strategy vs Benchmarks
-
+![Risk Controlled Strategy](outputs/charts/risk_controlled_vs_benchmarks.png)
 Risk-controlled portfolios reduce drawdowns but typically produce lower returns.
 
 Strategy Diagnostics
 Top-K Sensitivity Analysis
-
+![Top K Sensitivity](outputs/charts/topk_sensitivity.png)
 Alpha is concentrated among highest-ranked securities, with the Top-3 portfolio outperforming broader selections.
 
 Long-Only vs Long-Short
-
+![Long Only vs Long Short](outputs/charts/long_only_vs_long_short.png)
 The signal demonstrates stronger ability to identify outperformers than underperformers.
 
 Long-Short Portfolio
-
+![Long Short Strategy](outputs/charts/long_short_strategy.png)
 Market-neutral strategies show limited performance due to the small universe size.
 
 Rolling 12-Month Sharpe Ratio
-
+![Rolling Sharpe](outputs/charts/rolling_12m_sharpe.png)
 Rolling Sharpe analysis highlights performance variation across market regimes.
 
 Signal Evaluation
