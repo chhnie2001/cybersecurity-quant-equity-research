@@ -1,11 +1,11 @@
 Cybersecurity Quant Equity Research Platform
 Overview
 
-This project develops a quantitative research pipeline to evaluate machine learning–based alpha signals within the cybersecurity equity sector.
+This project develops a quantitative research platform to study machine learning–driven alpha signals within the cybersecurity equity sector.
 
-The research investigates whether cross-sectional factors derived from price momentum, volatility, and trading activity can predict forward one-month returns of cybersecurity stocks.
+The research investigates whether cross-sectional signals derived from price momentum, volatility, and trading activity can predict forward one-month stock returns.
 
-The platform implements a full quantitative workflow including:
+The platform replicates a simplified buy-side quantitative research workflow, including:
 
 Data pipeline construction
 
@@ -21,13 +21,33 @@ Benchmark comparison
 
 Alpha diagnostics
 
-The goal is to simulate a buy-side equity research process for sector-focused systematic strategies.
+The goal is to simulate a sector-focused systematic equity strategy research process.
 
+Research Workflow
+
+The research pipeline follows a typical quantitative investment workflow.
+
+Data Collection
+      ↓
+Feature Engineering
+      ↓
+Machine Learning Alpha Signal
+      ↓
+Portfolio Construction
+      ↓
+Backtesting & Diagnostics
+
+Implemented notebooks:
+
+notebooks/
+
+01_data_download_and_cleaning.ipynb
+02_factor_engineering.ipynb
+03_ml_stock_selection.ipynb
+04_strategy_backtest.ipynb
 Data Pipeline
 
-The research universe consists of publicly traded cybersecurity companies.
-
-Example securities include:
+The research universe consists of publicly traded cybersecurity companies, including:
 
 CRWD
 PANW
@@ -36,27 +56,30 @@ ZS
 OKTA
 CYBR
 NET
+TENB
 AKAM
 SNPS
-TENB
 
-Daily price data is downloaded using:
+Data source:
 
 Yahoo Finance API
 
 Data preprocessing includes:
 
-Missing data handling
+missing data handling
 
-Liquidity filtering
+liquidity filtering
 
-Monthly resampling
+monthly resampling
 
-Forward return calculation
+forward return calculation
 
+Processed datasets are stored in:
+
+data/processed/
 Feature Engineering
 
-Several cross-sectional predictive signals are constructed.
+Several predictive signals were constructed.
 
 Momentum
 mom_1m
@@ -69,27 +92,27 @@ vol_6m
 Liquidity
 volume_ratio
 
-Forward return used for training:
+Target variable:
 
 fwd_ret_1m
 
-These features form the input to the machine learning model.
+These features serve as inputs for the machine learning model.
 
-Machine Learning Signal
+Machine Learning Alpha Signal
 
-A regression model predicts forward 1-month returns for each stock.
+A regression model predicts forward one-month returns.
 
 Training procedure:
 
 walk-forward training
 rolling historical window
-monthly prediction
+monthly cross-sectional prediction
 
-The predicted values are interpreted as alpha scores used for portfolio construction.
+Predicted values are interpreted as alpha scores used for portfolio construction.
 
 Portfolio Construction
 
-Multiple portfolio construction methods are tested.
+Multiple portfolio construction approaches were evaluated.
 
 Baseline Strategy
 Long-only
@@ -97,50 +120,67 @@ Top-N predicted stocks
 Equal-weight allocation
 Risk-Controlled Portfolio
 
-Adds:
+Enhancements include:
 
-volatility adjustment
-turnover penalty
-transaction costs
+volatility filtering
+position caps
+transaction cost modeling
+
+This reduces portfolio concentration risk.
+
 Mean-Variance Optimized Portfolio
 
-Uses:
+Portfolio weights are computed using:
 
-expected return = model prediction
+expected return = ML prediction
 covariance matrix = historical returns
-weight constraints
+
+with constraints to avoid extreme allocations.
+
 Subtheme-Neutral Portfolio
 
-Portfolio exposure is balanced across cybersecurity subthemes such as:
+Exposure is balanced across cybersecurity subthemes such as:
 
-Endpoint security
-Identity security
-Cloud security
-Network security
+Endpoint Security
+Identity Security
+Cloud Security
+Network Security
 Secure DevOps
 
-This reduces concentration risk.
+This improves diversification and reduces thematic concentration.
 
-Benchmark Comparison
+Strategy Performance
+Baseline Strategy vs Benchmarks
 
-Strategy performance is compared against:
+Benchmarks include:
 
-SPY  (S&P 500)
-CIBR (Cybersecurity ETF)
-HACK (Cybersecurity ETF)
+SPY  – S&P 500 ETF
+CIBR – Cybersecurity ETF
+HACK – Cybersecurity ETF
+Risk-Controlled Strategy vs Benchmarks
 
-Example comparison:
+Risk-controlled portfolios reduce drawdowns but typically produce lower returns.
 
-Strategy	Final Return
-Baseline	~2.02x
-Risk-Controlled	~1.49x
-Optimized	~1.15x
-SPY	~2.05x
-CIBR	~2.11x
-HACK	~1.77x
+Strategy Diagnostics
+Top-K Sensitivity Analysis
+
+Alpha is concentrated among highest-ranked securities, with the Top-3 portfolio outperforming broader selections.
+
+Long-Only vs Long-Short
+
+The signal demonstrates stronger ability to identify outperformers than underperformers.
+
+Long-Short Portfolio
+
+Market-neutral strategies show limited performance due to the small universe size.
+
+Rolling 12-Month Sharpe Ratio
+
+Rolling Sharpe analysis highlights performance variation across market regimes.
+
 Signal Evaluation
 
-Signal quality is evaluated using Information Coefficient (IC).
+Signal quality is evaluated using the Information Coefficient (IC):
 
 IC = corr(predicted_return , future_return)
 
@@ -154,61 +194,51 @@ Rank IC
 
 IC t-statistic
 
-These metrics evaluate the statistical strength of the predictive signal.
-
-Strategy Diagnostics
-
-Additional robustness tests were performed.
-
-Top-K Sensitivity
-
-Portfolio performance was evaluated across different selection thresholds.
-
-Top 3
-Top 5
-Top 8
-
-Results indicate that alpha is concentrated in the highest-ranked securities.
-
-Long-Short Portfolio
-
-A market-neutral portfolio was constructed:
-
-Long Top 3
-Short Bottom 3
-
-The results show that the signal is stronger in identifying outperformers rather than underperformers.
-
-Rolling Sharpe Ratio
-
-A 12-month rolling Sharpe ratio was used to evaluate strategy stability across different market regimes.
-
-This analysis shows that performance varies across market environments, which is common in sector-focused systematic strategies.
+These metrics measure the statistical strength of the predictive signal.
 
 Key Findings
 
-Alpha signals are strongest among top-ranked securities.
+Research results suggest:
 
-Long-only strategies outperform long-short approaches in this sector universe.
+Alpha is strongest among top-ranked securities.
 
-Subtheme diversification improves risk control without significantly reducing returns.
+Long-only strategies outperform long-short portfolios.
 
-Signal strength is modest due to the relatively small universe size.
+Subtheme diversification improves risk control.
+
+Signal strength is modest due to the relatively small sector universe.
 
 Repository Structure
 data/
-  raw/
-  processed/
+│
+├─ raw/
+├─ processed/
+└─ external/
 
 notebooks/
-  01_data_download_and_cleaning.ipynb
-  02_factor_engineering.ipynb
-  03_ml_stock_selection.ipynb
-  04_strategy_backtest.ipynb
+│
+├─ 01_data_download_and_cleaning.ipynb
+├─ 02_factor_engineering.ipynb
+├─ 03_ml_stock_selection.ipynb
+└─ 04_strategy_backtest.ipynb
 
 outputs/
-  charts/
-  tables/
+│
+├─ charts/
+└─ tables/
+Technologies Used
+Python
+Pandas
+NumPy
+Scikit-learn
+Matplotlib
+SciPy
+Jupyter Notebook
 Disclaimer
 
 This project is for educational and research purposes only and does not constitute investment advice.
+
+Author
+
+Quantitative Research Project
+Cybersecurity Sector Alpha Study
